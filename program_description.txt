@@ -1,0 +1,15 @@
+```plaintext
+The program must:
+Use streamlit to create a web interface.
+Use Ollama to chat with the user.
+Make sure it uses Qwen2.5 14B model.
+
+Updated Requirements (program_update_01.txt):
+Ask for user's age (in years)
+Ask for user's known health problems
+Ask for how much time the user can spend exercising per day (in minutes)
+Ask for what the user's goal is: i. lose weight or ii. gain muscle
+The program should return a recommended weekly exercise plan (a one-week routine that the user should repeat every week).
+
+```
+

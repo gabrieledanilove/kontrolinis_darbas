@@ -1,0 +1,6 @@
+The program must:
+Ask for user's age (in years)
+Ask for user's known health problems
+Ask for how much time the user can spend exercising per day (in minutes)
+Ask for what the user’s goal is: i. lose weight or ii. gain muscle
+The program should return a recommended weekly exercise plan (a one-week routine that the user should repeat every week).

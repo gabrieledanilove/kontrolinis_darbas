@@ -1,0 +1,4 @@
+requests
+streamlit
+# Note: If you encounter pyarrow issues, use the manual installation process
+# documented in INSTALLATION.md
