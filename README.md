@@ -31,6 +31,26 @@ The application provides:
 - Ollama running locally
 - Qwen2.5 14B model installed in Ollama
 
+## Environment Setup
+
+The application supports environment variables for configuration. Create a `.env` file in the project root:
+
+```bash
+# Copy the example file
+cp .env.example .env
+
+# Edit the .env file with your settings
+# .env file content:
+OLLAMA_HOST=http://localhost:11434
+OLLAMA_MODEL=gemma3:4b
+API_KEY=your_api_key_here
+```
+
+**Supported Environment Variables:**
+- `OLLAMA_HOST` - Ollama server URL (default: http://localhost:11434)
+- `OLLAMA_MODEL` - Default AI model to use (default: gemma3:4b)
+- `API_KEY` - API key for external services (optional)
+
 ## Setup
 ```bash
 # Install Ollama and the required model

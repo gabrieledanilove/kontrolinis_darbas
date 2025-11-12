@@ -1,6 +1,11 @@
 import streamlit as st
 import requests
 import json
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()  # užkrauna .env failo turinį į aplinkos kintamuosius
 
 # Configure the page
 st.set_page_config(
@@ -18,8 +23,13 @@ def main():
     with st.sidebar:
         st.header("AI Configuration")
         
+        # Load configuration from environment variables
+        default_host = os.getenv("OLLAMA_HOST", "http://localhost:11434")
+        default_model = os.getenv("OLLAMA_MODEL", "gemma3:4b")
+        api_key = os.getenv("API_KEY", "")
+        
         # Ollama server settings
-        ollama_host = st.text_input("Ollama Host", value="http://localhost:11434")
+        ollama_host = st.text_input("Ollama Host", value=default_host)
         model_name = st.selectbox(
             "Model Name", 
             options=[
@@ -30,9 +40,20 @@ def main():
                 "llama3.1:8b",     # Good balance
                 "phi3:mini"        # Very fast, small model
             ],
-            index=0,
+            index=0 if default_model == "gemma3:4b" else 0,
             help="Select an available model. Smaller models (3b/4b) are faster but less detailed."
         )
+        
+        # Show API key status
+        if api_key:
+            st.success("✅ API key loaded from environment")
+            st.caption(f"API Key: {api_key[:8]}..." if len(api_key) > 8 else f"API Key: {api_key}")
+        else:
+            st.info("💡 No API key found in environment (.env file)")
+            manual_api_key = st.text_input("Manual API Key (optional)", type="password", 
+                                          help="Enter API key manually if not using .env file")
+            if manual_api_key:
+                api_key = manual_api_key
         
         # Check model availability
         if st.button("Check Available Models"):
@@ -52,6 +73,22 @@ def main():
                 st.error("Ollama is not running or not accessible")
         
         st.info("Make sure Ollama is running and your selected model is installed")
+        
+        # Environment variables info
+        with st.expander("🔧 Environment Variables", expanded=False):
+            st.markdown("""
+            **Supported .env variables:**
+            - `OLLAMA_HOST` - Ollama server URL
+            - `OLLAMA_MODEL` - Default model name
+            - `API_KEY` - API key for external services
+            
+            **Example .env file:**
+            ```
+            OLLAMA_HOST=http://localhost:11434
+            OLLAMA_MODEL=gemma3:4b
+            API_KEY=your_api_key_here
+            ```
+            """)
     
     # Main form for user input
     st.header("Tell us about yourself")
